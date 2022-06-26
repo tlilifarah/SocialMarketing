@@ -4,25 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-const cors = require('cors');
-const mongoose = require('mongoose');
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var productsRouter = require('./routes/products');
 
-var app = express();
-app.use(cors());
 
-mongoose.connect('mongodb://localhost/Ecommerce_db',{useNewUrlParser:true},(error)=>{
-  if(error){
-    console.log(err)
-    return
-  }else{
-    console.log('connecting to DB')
-  }
-});
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,13 +25,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
-app.use('/products', productsRouter);
+
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
 
 // error handler
 app.use(function(err, req, res, next) {
