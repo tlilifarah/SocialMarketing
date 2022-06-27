@@ -70,6 +70,19 @@ router.patch('/:productID',(req,res , next )=>{
     })
 })
 
+router.delete('/:productID',(req , res , next)=>{
 
+    Product.deleteOne({_id : req.params.productID}).
+    then(doc=> {
+        res.status(200).json({
+            massage : doc 
+        })
+    }).
+    catch((err=>{
+        res.status(404).json({
+            massage: err
+        })
+    }))
+})
 
 module.exports= router ;
