@@ -51,7 +51,24 @@ router.get('/:productID', (req, res ,next) =>{
         })
 })
 
+router.patch('/:productID',(req,res , next )=>{
 
+    const newproduct = {
+        name: req.body.name ,
+        price : req.body.price
+    }
+    Product.update({_id : req.params.productID} , {$set : newproduct}).
+    then(doc=> {
+        res.status(200).json({
+            massage :doc
+        })
+    }).
+    catch(err=>{
+        res.status(404).json({
+            massage: err
+        })
+    })
+})
 
 
 
